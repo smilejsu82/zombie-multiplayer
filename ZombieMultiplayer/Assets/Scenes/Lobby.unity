@@ -697,6 +697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btn: {fileID: 267490739}
+  nickname: "\uD64D\uAE38\uB3D9"
 --- !u!4 &1282163174
 Transform:
   m_ObjectHideFlags: 0

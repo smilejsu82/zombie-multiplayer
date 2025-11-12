@@ -7,6 +7,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 {
     private string gameVersion = "1";
     public Button btn;
+    public string nickname;
     
     void Start()
     {
@@ -29,6 +30,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsConnected)
         {
+            PhotonNetwork.NickName = nickname;
             PhotonNetwork.JoinRandomRoom();
         }
         else
@@ -52,10 +54,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         Debug.Log($"OnJoinedRoom : {PhotonNetwork.CurrentRoom.Name}");
 
-        Debug.Log(PhotonNetwork.IsMasterClient);    //방장 
+        Debug.Log(PhotonNetwork.IsMasterClient);    //방장
         
+        Debug.Log($"[{PhotonNetwork.NickName}]님이 입장 했습니다.");
         //씬전환 
-        PhotonNetwork.LoadLevel("Main");
+        //PhotonNetwork.LoadLevel("Main");
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        Debug.Log($"[{newPlayer.NickName}]님이 입장 했습니다.");
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
