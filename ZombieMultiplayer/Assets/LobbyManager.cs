@@ -107,7 +107,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     //플레이어꺼 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        Debug.Log($"[{PhotonNetwork.NickName}]님이 퇴장 했습니다.");
+        Debug.Log($"[{otherPlayer.NickName}]님이 퇴장 했습니다.");
     }
 
     //내꺼 
