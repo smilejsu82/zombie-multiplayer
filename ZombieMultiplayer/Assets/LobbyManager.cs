@@ -64,9 +64,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         
         //원래는..
         var me = PhotonNetwork.LocalPlayer;
+        //Debug.Log(me.NickName);
+        //Debug.Log(PhotonNetwork.PlayerList);
+        
         foreach (var p in PhotonNetwork.PlayerList)
         {
-            if(p == me) return;
+            if (p == me) continue;
             Debug.Log($"[{p.NickName}]님이 입장 했습니다.");
         }
         
