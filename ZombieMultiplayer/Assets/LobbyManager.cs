@@ -56,7 +56,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         Debug.Log(PhotonNetwork.IsMasterClient);    //방장
         
+        //내가 마스터가 아니라면 , 현재 마스터의 닉네임 출력
+        if (!PhotonNetwork.IsMasterClient && PhotonNetwork.MasterClient != null)
+        {
+            Debug.Log($"[{PhotonNetwork.MasterClient.NickName}]님이 입장 했습니다.");    
+        }
+
+        //내 입장 메시지 출력 
         Debug.Log($"[{PhotonNetwork.NickName}]님이 입장 했습니다.");
+        
         //씬전환 
         //PhotonNetwork.LoadLevel("Main");
     }
