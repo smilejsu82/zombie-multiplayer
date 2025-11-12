@@ -21,6 +21,7 @@ public class Woman : MonoBehaviourPun
         var dir = new Vector3(h, 0, v);
         if (dir != Vector3.zero)
         {
+            Debug.Log(dir);
             var q = Quaternion.LookRotation(dir);
             transform.rotation = q;
             transform.Translate(Vector3.forward * 2.1f * Time.deltaTime);
