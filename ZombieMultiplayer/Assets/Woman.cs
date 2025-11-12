@@ -12,6 +12,11 @@ public class Woman : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        
+        var h = Input.GetAxisRaw("Horizontal");
+        var v = Input.GetAxisRaw("Vertical");
+        var dir = new Vector3(h, 0, v);
+        var q = Quaternion.LookRotation(dir);
+        transform.rotation = q;
+        transform.Translate(Vector3.forward * 1f * Time.deltaTime);
     }
 }
