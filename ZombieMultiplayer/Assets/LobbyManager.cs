@@ -57,10 +57,19 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         Debug.Log(PhotonNetwork.IsMasterClient);    //방장
         
         //내가 마스터가 아니라면 , 현재 마스터의 닉네임 출력
-        if (!PhotonNetwork.IsMasterClient && PhotonNetwork.MasterClient != null)
+        // if (!PhotonNetwork.IsMasterClient && PhotonNetwork.MasterClient != null)
+        // {
+        //     Debug.Log($"[{PhotonNetwork.MasterClient.NickName}]님이 입장 했습니다.");    
+        // }
+        
+        //원래는..
+        var me = PhotonNetwork.LocalPlayer;
+        foreach (var p in PhotonNetwork.PlayerList)
         {
-            Debug.Log($"[{PhotonNetwork.MasterClient.NickName}]님이 입장 했습니다.");    
+            if(p == me) return;
+            Debug.Log($"[{p.NickName}]님이 입장 했습니다.");
         }
+        
 
         //내 입장 메시지 출력 
         Debug.Log($"[{PhotonNetwork.NickName}]님이 입장 했습니다.");
@@ -90,5 +99,17 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         Debug.Log($"OnCreateRoomFailed : {returnCode}, {message}");
+    }
+
+    //플레이어꺼 
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Debug.Log($"[{PhotonNetwork.NickName}]님이 퇴장 했습니다.");
+    }
+
+    //내꺼 
+    public override void OnLeftRoom()
+    {
+        Debug.Log($"[{PhotonNetwork.NickName}]님이 방을 나갔습니다.");
     }
 }
