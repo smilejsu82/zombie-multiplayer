@@ -1676,6 +1676,8 @@ GameObject:
   - component: {fileID: 793732536534097622}
   - component: {fileID: 7506738971076055023}
   - component: {fileID: 3923630021245096605}
+  - component: {fileID: -3954729950561499825}
+  - component: {fileID: -7572360295075416651}
   m_Layer: 0
   m_Name: Woman
   m_TagString: Untagged
@@ -1720,6 +1722,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 7506738971076055023}
+  - {fileID: -7572360295075416651}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1751,6 +1754,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5aa34bbcfa82d4ca1dc61562679496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &-3954729950561499825
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9015387204669570569}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 98cdee121d6e440de9fb99a7c24fa0da, type: 3}
+  m_Controller: {fileID: 9100000, guid: 2a8e6f4f64a09be43a71a85cc946062a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-7572360295075416651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9015387204669570569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 0
+  m_SynchronizeParameters: []
+  m_SynchronizeLayers:
+  - SynchronizeType: 2
+    LayerIndex: 0
 --- !u!1 &9083166742850344831
 GameObject:
   m_ObjectHideFlags: 0
