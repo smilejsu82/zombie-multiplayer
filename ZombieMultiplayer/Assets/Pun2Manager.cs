@@ -21,6 +21,9 @@ public class Pun2Manager : MonoBehaviourPunCallbacks
         }
 
         instance = this;
+        
+        PhotonNetwork.AutomaticallySyncScene = true;
+        
         DontDestroyOnLoad(gameObject);
     }
 
