@@ -15,6 +15,6 @@ public class RoomMain : MonoBehaviour
     {
         Debug.Log(PhotonNetwork.LocalPlayer);
         
-        Debug.Log(PhotonNetwork.PlayerList.Length);
+        Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);   //2
     }
 }
