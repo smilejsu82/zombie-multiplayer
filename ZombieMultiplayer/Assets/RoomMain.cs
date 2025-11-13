@@ -58,9 +58,11 @@ public class RoomMain : MonoBehaviour
         
         foreach (var p in playerList)
         {
-            Debug.Log($"<color=lime>{p.NickName}</color>");   //lim, hong
+            Debug.Log($"<color=lime>{p.NickName}</color>");   //hong, lim
         }
-
+        
+        //클라이언트일경우 이곳에서 UIPlayerItem을 만든다
+        uiPlayerList.Init(playerList);
 
     }
 
@@ -69,11 +71,13 @@ public class RoomMain : MonoBehaviour
         Debug.Log($"newPlayer: {newPlayer}");   //남
         playerList.Add(newPlayer);
 
-
         foreach (var p in playerList)
         {
             Debug.Log($"<color=yellow>{p.NickName}</color>");   //hong, lim
         }
+        
+        //마스터일경우 이곳에서 UIPlayerItem을 만든다
+        uiPlayerList.Init(playerList);
     }
 
     private void Start()
