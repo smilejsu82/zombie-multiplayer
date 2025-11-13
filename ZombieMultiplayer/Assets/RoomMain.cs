@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine;
 public class RoomMain : MonoBehaviour
 {
     public UIPlayerList uiPlayerList;
+    private List<Player> playerList = new List<Player>();
 
     private void Awake()
     {
@@ -27,17 +29,33 @@ public class RoomMain : MonoBehaviour
         {
             if (p == me) continue;
             Debug.Log($"[{p.NickName}]님이 입장 했습니다.");
+            playerList.Add(p);
+        }
+        
+        
+        foreach (var p in playerList)
+        {
+            Debug.Log($"<color=yellow>{p.NickName}</color>");   //lim, hong
         }
 
     }
 
     private void OnPlayerEnteredRoomEvent(short eventType, Player newPlayer)
     {
-        Debug.Log($"newPlayer: {newPlayer}");   //남 
+        Debug.Log($"newPlayer: {newPlayer}");   //남
+        playerList.Add(newPlayer);
+
+
+        foreach (var p in playerList)
+        {
+            Debug.Log($"<color=yellow>{p.NickName}</color>");   //hong, lim
+        }
     }
 
     private void Start()
     {
         Debug.Log(PhotonNetwork.LocalPlayer);   //나
+        
+        playerList.Add(PhotonNetwork.LocalPlayer);
     }
 }
