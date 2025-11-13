@@ -6,6 +6,7 @@ public class EventEnums
     {
         OnConnectedToMaster,
         OnJoinedLobby,
-        OnRoomListUpdate
+        OnRoomListUpdate,
+        OnJoinedRoom
     }
 }
