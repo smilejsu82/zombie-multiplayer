@@ -129,6 +129,11 @@ public class Pun2Manager : MonoBehaviourPunCallbacks
         //     PhotonNetwork.LoadLevel("Main");
         // }
 
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("Room");
+        }
+
         EventDispatcher.instance.SendEvent((int)EventEnums.EventType.OnJoinedRoom);
     }
 
