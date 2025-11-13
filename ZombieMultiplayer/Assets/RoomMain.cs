@@ -58,7 +58,7 @@ public class RoomMain : MonoBehaviour
         
         foreach (var p in playerList)
         {
-            Debug.Log($"<color=lim>{p.NickName}</color>");   //lim, hong
+            Debug.Log($"<color=lime>{p.NickName}</color>");   //lim, hong
         }
 
 
