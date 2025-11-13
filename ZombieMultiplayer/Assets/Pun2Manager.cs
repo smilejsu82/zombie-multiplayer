@@ -1,48 +1,52 @@
+using System;
+using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LobbyManager : MonoBehaviourPunCallbacks
+public class Pun2Manager : MonoBehaviourPunCallbacks
 {
     private string gameVersion = "1";
-    public Button btn;
-    public string nickname;
-    
-    void Start()
+    public static Pun2Manager instance;
+
+    private void Awake()
     {
-        PhotonNetwork.GameVersion = gameVersion;
-        PhotonNetwork.ConnectUsingSettings();   //마스터 서버 접속 요청 
-        
-        btn.interactable = false;
-        btn.onClick.AddListener(() =>
-        {
-            Debug.Log("룸 접속 요청");
-            btn.interactable = false;
-            Connect();
-        });
+        instance = this;
+        DontDestroyOnLoad(this.gameObject);
     }
 
-    private void Connect()
+    public void Init()
     {
-        //마스터 서버 접속 여부 
-        Debug.Log($"IsConnected: {PhotonNetwork.IsConnected}");
+        PhotonNetwork.GameVersion = gameVersion;
+        PhotonNetwork.ConnectUsingSettings();   //마스터 서버 접속 요청
+    }
 
-        if (PhotonNetwork.IsConnected)
-        {
-            PhotonNetwork.NickName = nickname;
-            PhotonNetwork.JoinRandomRoom();
-        }
-        else
-        {
-            PhotonNetwork.ConnectUsingSettings();   //마스터 서버 접속 요청 
-        }
+    public void JoinLobby(string nickname)
+    {
+        PhotonNetwork.NickName = nickname;
+        Debug.Log($"닉네임이 설정 되었습니다. : {nickname}");
+        PhotonNetwork.JoinLobby();
     }
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("OnConnectedToMaster");
-        btn.interactable = true;
+        Debug.Log("마스터서버에 접속 했습니다.");
+        
+        //로비 입장
+        EventDispatcher.instance.SendEvent((int)EventEnums.EventType.OnConnectedToMaster);
+    }
+
+    public override void OnJoinedLobby()
+    {
+        Debug.Log("로비에 입장 했습니다.");
+        EventDispatcher.instance.SendEvent((int)EventEnums.EventType.OnJoinedLobby);
+    }
+
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        Debug.Log($"OnRoomListUpdate: {roomList.Count}");
+        EventDispatcher.instance.SendEvent((int)EventEnums.EventType.OnRoomListUpdate, roomList);
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -114,5 +118,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         Debug.Log($"[{PhotonNetwork.NickName}]님이 방을 나갔습니다.");
+    }
+
+    public void CreateRoom()
+    {
+        Debug.Log("방을 만듭니다.");
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 2 });
     }
 }
