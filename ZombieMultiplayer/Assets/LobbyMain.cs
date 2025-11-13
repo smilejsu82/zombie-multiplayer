@@ -1,3 +1,4 @@
+using System;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
@@ -58,42 +59,56 @@ public class LobbyMain : MonoBehaviour
         // 마스터 서버 접속 완료
         EventDispatcher.instance.AddEventHandler(
             (int)EventEnums.EventType.OnConnectedToMaster,
-            (short eventType) =>
-            {
-                Debug.Log($"AddEventListeners: {(EventEnums.EventType)eventType}");
-                uiLoading.Hide();
-
-                // 닉네임 없으면 닉네임 입력창 켜기
-                nicknameView.gameObject.SetActive(string.IsNullOrEmpty(PhotonNetwork.NickName));
-            });
+            OnConnectedToMasterServerEvent);
 
         // 로비 입장 완료
         EventDispatcher.instance.AddEventHandler(
             (int)EventEnums.EventType.OnJoinedLobby,
-            (short eventType) =>
-            {
-                Debug.Log($"AddEventListeners: {(EventEnums.EventType)eventType}");
-                uiLoading.Hide();
-
-                if (!string.IsNullOrEmpty(PhotonNetwork.NickName))
-                {
-                    uiRoomScrollview.Show();
-                    createRoomButton.gameObject.SetActive(true);
-                    leaveRoombutton.gameObject.SetActive(false);
-                }
-            });
+            OnJoinedLobbyEvent);
 
         // 방 입장 완료
         EventDispatcher.instance.AddEventHandler(
             (int)EventEnums.EventType.OnJoinedRoom,
-            (short eventType) =>
-            {
-                Debug.Log($"AddEventListeners: {(EventEnums.EventType)eventType}");
+            OnJoinedRoomEvent);
+    }
 
-                leaveRoombutton.gameObject.SetActive(true);
+    private void OnConnectedToMasterServerEvent(short eventType)
+    {
+        Debug.Log($"AddEventListeners: {(EventEnums.EventType)eventType}");
+        uiLoading.Hide();
 
-                uiRoomScrollview.Hide();
-                createRoomButton.gameObject.SetActive(false);
-            });
+        // 닉네임 없으면 닉네임 입력창 켜기
+        nicknameView.gameObject.SetActive(string.IsNullOrEmpty(PhotonNetwork.NickName));
+    }
+
+    private void OnJoinedLobbyEvent(short eventType)
+    {
+        Debug.Log($"AddEventListeners: {(EventEnums.EventType)eventType}");
+        uiLoading.Hide();
+
+        if (!string.IsNullOrEmpty(PhotonNetwork.NickName))
+        {
+            uiRoomScrollview.Show();
+            createRoomButton.gameObject.SetActive(true);
+            leaveRoombutton.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnJoinedRoomEvent(short eventType)
+    {
+        Debug.Log($"AddEventListeners: {(EventEnums.EventType)eventType}");
+
+        leaveRoombutton.gameObject.SetActive(true);
+        uiRoomScrollview.Hide();
+        createRoomButton.gameObject.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        if(EventDispatcher.instance == null) return;
+        
+        EventDispatcher.instance.RemoveEventHandler((int)EventEnums.EventType.OnConnectedToMaster, OnConnectedToMasterServerEvent);
+        EventDispatcher.instance.RemoveEventHandler((int)EventEnums.EventType.OnJoinedLobby, OnJoinedLobbyEvent);
+        EventDispatcher.instance.RemoveEventHandler((int)EventEnums.EventType.OnJoinedRoom, OnJoinedRoomEvent);
     }
 }
