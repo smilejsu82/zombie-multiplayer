@@ -144,6 +144,7 @@ public class Pun2Manager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log($"[{newPlayer.NickName}]님이 입장 했습니다.");
+        EventDispatcher.instance.SendEvent((int)EventEnums.EventType.OnPlayerEnteredRoom, newPlayer);
     }
 
     // 랜덤 조인 실패 → 방 생성 (필요한 경우에만 사용)
