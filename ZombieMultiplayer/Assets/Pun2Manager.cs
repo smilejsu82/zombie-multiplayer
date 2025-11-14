@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -169,7 +170,30 @@ public class Pun2Manager : MonoBehaviourPunCallbacks
     // 다른 플레이어가 방을 나갔을 때
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        Debug.Log($"[{otherPlayer.NickName}]님이 퇴장 했습니다.");
+        Debug.Log($"[{otherPlayer.NickName}] ({otherPlayer.IsMasterClient})님이 퇴장 했습니다.");
+        if (otherPlayer.IsMasterClient)
+        {
+            Debug.Log("방장이 나갔습니다.");
+        }
+        else
+        {
+            Debug.Log("손님이 나갔습니다.");
+        }
+        Debug.Log($"{PhotonNetwork.CurrentRoom.PlayerCount}");
+
+        // bool anyMasterClient = PhotonNetwork.CurrentRoom.Players.Values.ToList().Any(x => x.IsMasterClient); 
+        // Debug.Log($"{anyMasterClient}");
+        //
+        // if (!anyMasterClient)
+        // {
+        //     Debug.Log("이방에는 마스터 클라이언트가 없습니다.");
+        // }
+        // else
+        // {
+        //     Debug.Log("이방에는 마스터 클라이언트가 있습니다.");
+        // }
+
+       
     }
 
     // 내가 방을 나갔을 때
