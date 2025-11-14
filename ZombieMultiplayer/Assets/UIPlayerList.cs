@@ -8,6 +8,16 @@ public class UIPlayerList : MonoBehaviour
 
     public void Init(List<Player> players)
     {
+        UpdateUI(players);
+    }
+
+    public void UpdateUI(List<Player> players)
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);   
+        }
+        
         for (int i = 0; i < players.Count; i++)
         {
             var player = players[i];

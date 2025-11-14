@@ -185,18 +185,8 @@ public class Pun2Manager : MonoBehaviourPunCallbacks
             Debug.Log("손님이 나갔습니다.");
         }
         Debug.Log($"{PhotonNetwork.CurrentRoom.PlayerCount}");
-
-        // bool anyMasterClient = PhotonNetwork.CurrentRoom.Players.Values.ToList().Any(x => x.IsMasterClient); 
-        // Debug.Log($"{anyMasterClient}");
-        //
-        // if (!anyMasterClient)
-        // {
-        //     Debug.Log("이방에는 마스터 클라이언트가 없습니다.");
-        // }
-        // else
-        // {
-        //     Debug.Log("이방에는 마스터 클라이언트가 있습니다.");
-        // }
+        
+        EventDispatcher.instance.SendEvent((int)EventEnums.EventType.OnPlayerLeftRoom);
     }
 
     // 내가 방을 나갔을 때
@@ -206,7 +196,7 @@ public class Pun2Manager : MonoBehaviourPunCallbacks
         Debug.Log($"PhotonNetwork.InLobby: {PhotonNetwork.InLobby}");
         Debug.Log($"PhotonNetwork.InRoom: {PhotonNetwork.InRoom}");
         
-        //SceneManager.LoadScene("Lobby");
+        PhotonNetwork.LoadLevel("Lobby");
 
     }
 

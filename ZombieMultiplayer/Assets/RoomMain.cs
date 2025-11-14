@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -21,11 +22,17 @@ public class RoomMain : MonoBehaviour
                     (int)EventEnums.EventType.OnJoinedRoom,
                     OnJoinedRoomEvent);
         
+        EventDispatcher.instance.AddEventHandler((int)EventEnums.EventType.OnPlayerLeftRoom, OnPlayerLeftRoomEvent);
+        
         leaveButton.onClick.AddListener(() =>
         {
             //방에 없는 상태네...
             Pun2Manager.instance.LeaveRoom();
         });
+    }
+    private void OnPlayerLeftRoomEvent(short eventType)
+    {
+        uiPlayerList.UpdateUI(PhotonNetwork.CurrentRoom.Players.Values.ToList());
     }
 
     private void OnJoinedRoomEvent(short eventType)

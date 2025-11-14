@@ -8,6 +8,7 @@ public class EventEnums
         OnJoinedLobby,
         OnRoomListUpdate,
         OnJoinedRoom,
-        OnPlayerEnteredRoom
+        OnPlayerEnteredRoom,
+        OnPlayerLeftRoom
     }
 }
