@@ -177,8 +177,7 @@ public class Pun2Manager : MonoBehaviourPunCallbacks
     {
         Debug.Log($"[{PhotonNetwork.NickName}]님이 방을 나갔습니다.");
         Debug.Log($"PhotonNetwork.InLobby: {PhotonNetwork.InLobby}");
-
-        PhotonNetwork.LoadLevel("Lobby");
+        Debug.Log($"PhotonNetwork.InRoom: {PhotonNetwork.InRoom}");
         
         //SceneManager.LoadScene("Lobby");
 

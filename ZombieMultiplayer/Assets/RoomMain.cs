@@ -23,6 +23,8 @@ public class RoomMain : MonoBehaviour
         
         leaveButton.onClick.AddListener(() =>
         {
+            //방에 없는 상태네...
+            PhotonNetwork.LoadLevel("Lobby");
             Pun2Manager.instance.LeaveRoom();
         });
     }
