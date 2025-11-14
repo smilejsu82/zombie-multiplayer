@@ -108,6 +108,12 @@ public class RoomMain : MonoBehaviour
         playerList.Add(PhotonNetwork.LocalPlayer);
 
         UpdateReadyAndStartButton();
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            //내껏만 PlayerItem을 만든다 
+            uiPlayerList.UpdateUI(PhotonNetwork.CurrentRoom.Players.Values.ToList());
+        }
     }
 
     private void UpdateReadyAndStartButton()
