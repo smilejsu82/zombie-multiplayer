@@ -97,6 +97,8 @@ public class RoomMain : MonoBehaviour
         
         //마스터일경우 이곳에서 UIPlayerItem을 만든다
         uiPlayerList.Init(playerList);
+        
+        UpdateReadyAndStartButton();
     }
 
     private void Start()
