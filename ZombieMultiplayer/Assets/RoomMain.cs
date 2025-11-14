@@ -122,6 +122,11 @@ public class RoomMain : MonoBehaviour
             readyButton.gameObject.SetActive(true);
             startButton.gameObject.SetActive(false);
         }
+
+        if (PhotonNetwork.LocalPlayer.IsMasterClient && PhotonNetwork.PlayerList.Length <= 1)
+        {
+            startButton.interactable = false;
+        }
     }
 
     public void HideReadyAndStartButton()
