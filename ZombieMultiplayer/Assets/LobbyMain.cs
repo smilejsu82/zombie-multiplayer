@@ -102,6 +102,11 @@ public class LobbyMain : MonoBehaviour
         leaveRoombutton.gameObject.SetActive(true);
         uiRoomScrollview.Hide();
         createRoomButton.gameObject.SetActive(false);
+        
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("Room");
+        }
     }
 
     private void OnDestroy()
