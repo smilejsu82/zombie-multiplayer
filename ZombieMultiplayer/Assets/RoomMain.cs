@@ -6,7 +6,7 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RoomMain : MonoBehaviour
+public class RoomMain : MonoBehaviourPun
 {
     public UIPlayerList uiPlayerList;
     private List<Player> playerList = new List<Player>();
@@ -30,6 +30,11 @@ public class RoomMain : MonoBehaviour
         {
             //방에 없는 상태네...
             Pun2Manager.instance.LeaveRoom();
+        });
+        
+        readyButton.onClick.AddListener(() =>
+        {
+            photonView.RPC("Ready", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber);
         });
     }
     private void OnPlayerLeftRoomEvent(short eventType)
@@ -131,10 +136,12 @@ public class RoomMain : MonoBehaviour
             startButton.gameObject.SetActive(false);
         }
 
-        if (PhotonNetwork.LocalPlayer.IsMasterClient && PhotonNetwork.PlayerList.Length <= 1)
-        {
-            startButton.interactable = false;
-        }
+        //방에 1명이상 있어야되고 마스터를 제외한 모든 플레이어가 READY버튼을 눌러야만 
+        //MasterClient쪽의 Start Button이 interactable true가 되어야함 
+        // if (PhotonNetwork.LocalPlayer.IsMasterClient && PhotonNetwork.PlayerList.Length <= 1)
+        // {
+        //     startButton.interactable = false;
+        // }
     }
 
     public void HideReadyAndStartButton()
@@ -147,5 +154,12 @@ public class RoomMain : MonoBehaviour
     {
         EventDispatcher.instance.RemoveEventHandler((int)EventEnums.EventType.OnPlayerEnteredRoom);
         EventDispatcher.instance.RemoveEventHandler((int)EventEnums.EventType.OnJoinedRoom);
+    }
+
+    [PunRPC]
+    public void Ready(int actorNumber)
+    {
+        var player = PhotonNetwork.CurrentRoom.Players[actorNumber];
+        Debug.Log($"{player.NickName}이 준비했습니다.");
     }
 }
